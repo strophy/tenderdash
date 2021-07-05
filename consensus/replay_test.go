@@ -344,7 +344,7 @@ func TestSimulateValidatorsChange(t *testing.T) {
 		"replay_test",
 		newMockTickerFunc(true),
 		newPersistentKVStoreWithPath)
-	fmt.Printf("initial quorum hash is %X\n", genDoc.QuorumHash)
+	// fmt.Printf("initial quorum hash is %X\n", genDoc.QuorumHash)
 	sim.Config = config
 	sim.GenesisState, _ = sm.MakeGenesisState(genDoc)
 	sim.CleanupFunc = cleanup
@@ -455,7 +455,8 @@ func TestSimulateValidatorsChange(t *testing.T) {
 				oldPubKey = validatorAt2.PubKey
 			}
 		}
-		fmt.Printf("update at height 4 (for 6) %v %v -> %v\n", updatedValidators4[i].ProTxHash, oldPubKey, updatedValidators4[i].PubKey)
+		css[0].Logger.Debug("update at height 4 (for 6)", "proTxHash", updatedValidators4[i].ProTxHash,
+			"old Public Key", oldPubKey, "new Public Key", updatedValidators4[i].PubKey)
 	}
 	abciThresholdPubKey2, err := cryptoenc.PubKeyToProto(newThresholdPublicKey)
 	require.NoError(t, err)
@@ -487,7 +488,7 @@ func TestSimulateValidatorsChange(t *testing.T) {
 	ensureNewProposal(proposalCh, height, round)
 	rs = css[0].GetRoundState()
 	vssForSigning := vss[0 : nVals+1]
-	sort.Sort(ValidatorStubsByPower(vssForSigning))
+	sort.Sort(ValidatorStubsByProTxHash(vssForSigning))
 
 	valIndexFn := func(cssIdx int) int {
 		for i, vs := range vssForSigning {
@@ -581,11 +582,12 @@ func TestSimulateValidatorsChange(t *testing.T) {
 		updateTransactions3[i] = kvstore.MakeValSetChangeTx(updatedValidators6[i].ProTxHash, abciPubKey, testMinPower)
 		var oldPubKey crypto.PubKey
 		for _, validatorAt4 := range updatedValidators4 {
-			if bytes.Equal(validatorAt4.ProTxHash, updatedValidators6[i].ProTxHash) {
+			 if bytes.Equal(validatorAt4.ProTxHash, updatedValidators6[i].ProTxHash) {
 				oldPubKey = validatorAt4.PubKey
-			}
+			 }
 		}
-		fmt.Printf("update at height 6 (for 8) %v %v -> %v\n", updatedValidators6[i].ProTxHash, oldPubKey, updatedValidators6[i].PubKey)
+		css[0].Logger.Debug("update at height 6 (for 8)", "proTxHash", updatedValidators6[i].ProTxHash,
+			"old Public Key", oldPubKey, "new Public Key", updatedValidators6[i].PubKey)
 	}
 	abciThresholdPubKey, err = cryptoenc.PubKeyToProto(newThresholdPublicKey)
 	require.NoError(t, err)
@@ -650,7 +652,7 @@ func TestSimulateValidatorsChange(t *testing.T) {
 	ensureNewProposal(proposalCh, height, round)
 
 	vssForSigning = vss[0 : nVals+3]
-	sort.Sort(ValidatorStubsByPower(vssForSigning))
+	sort.Sort(ValidatorStubsByProTxHash(vssForSigning))
 
 	selfIndex = valIndexFn(0)
 
@@ -773,7 +775,7 @@ func TestSimulateValidatorsChange(t *testing.T) {
 	rs = css[0].GetRoundState()
 	// Reflect the changes to vss[nVals] at height 3 and resort newVss.
 	vssForSigning = vss[0 : nVals+3]
-	sort.Sort(ValidatorStubsByPower(vssForSigning))
+	sort.Sort(ValidatorStubsByProTxHash(vssForSigning))
 	vssForSigning = vssForSigning[0 : nVals+2]
 	selfIndex = valIndexFn(0)
 	for i := 0; i < nVals+2; i++ {

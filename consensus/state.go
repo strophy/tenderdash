@@ -100,9 +100,6 @@ type State struct {
 	mtx tmsync.RWMutex
 	cstypes.RoundState
 	state sm.State // State until height-1.
-	// privValidator pubkey, memoized for the duration of one block
-	// to avoid extra requests to HSM
-	privValidatorPubKey crypto.PubKey
 
 	// privValidator proTxHash, memoized for the duration of one block
 	// to avoid extra requests to HSM
@@ -301,10 +298,6 @@ func (cs *State) SetPrivValidator(priv types.PrivValidator) {
 
 	if err := cs.updatePrivValidatorProTxHash(); err != nil {
 		cs.Logger.Error("Can't get private validator protxhash", "err", err)
-	}
-
-	if err := cs.updatePrivValidatorPubKey(); err != nil {
-		cs.Logger.Error("failed to get private validator pubkey", "err", err)
 	}
 }
 
@@ -1894,11 +1887,6 @@ func (cs *State) applyCommit(commit *types.Commit, logger log.Logger) {
 
 	fail.Fail() // XXX
 
-	// Private validator might have changed it's key pair => refetch pubkey.
-	if err := cs.updatePrivValidatorPubKey(); err != nil {
-		logger.Error("failed to get private validator pubkey", "err", err)
-	}
-
 	// cs.StartTime is already set.
 	// Schedule Round0 to start soon.
 	cs.scheduleRound0(&cs.RoundState)
@@ -2198,7 +2186,6 @@ func (cs *State) tryAddVote(vote *types.Vote, peerID p2p.ID) (bool, error) {
 			// 2) not a bad peer? this can also err sometimes with "Unexpected step" OR
 			// 3) tmkms use with multiple validators connecting to a single tmkms instance
 			// 		(https://github.com/tendermint/tendermint/issues/3839).
-			fmt.Printf("failed attempting to add vote %v", err)
 			cs.Logger.Info("failed attempting to add vote", "err", err)
 			return added, ErrAddingVote
 		}
@@ -2477,22 +2464,6 @@ func (cs *State) signAddVote(msgType tmproto.SignedMsgType, hash []byte, header 
 	}
 
 	cs.Logger.Error("failed signing vote", "height", cs.Height, "round", cs.Round, "vote", vote, "err", err)
-	return nil
-}
-
-// updatePrivValidatorPubKey get's the private validator public key and
-// memoizes it. This func returns an error if the private validator is not
-// responding or responds with an error.
-func (cs *State) updatePrivValidatorPubKey() error {
-	if cs.privValidator == nil {
-		return nil
-	}
-
-	pubKey, err := cs.privValidator.GetPubKey(cs.Validators.QuorumHash)
-	if err != nil {
-		return err
-	}
-	cs.privValidatorPubKey = pubKey
 	return nil
 }
 

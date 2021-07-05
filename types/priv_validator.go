@@ -223,7 +223,7 @@ func (pv *MockPV) SignProposal(chainID string, quorumType btcjson.LLMQType, quor
 	if quorumKeys, ok := pv.PrivateKeys[quorumHash.String()]; ok {
 		privKey = quorumKeys.PrivKey
 	} else {
-		return signId, fmt.Errorf("file private validator could not sign vote for quorum hash %v", quorumHash)
+		return signId, fmt.Errorf("file private validator could not sign proposal for quorum hash %v", quorumHash)
 	}
 
 	sig, err := privKey.SignDigest(signId)

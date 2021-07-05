@@ -158,13 +158,13 @@ func incrementRound(vss ...*validatorStub) {
 	}
 }
 
-type ValidatorStubsByPower []*validatorStub
+type ValidatorStubsByProTxHash []*validatorStub
 
-func (vss ValidatorStubsByPower) Len() int {
+func (vss ValidatorStubsByProTxHash) Len() int {
 	return len(vss)
 }
 
-func (vss ValidatorStubsByPower) Less(i, j int) bool {
+func (vss ValidatorStubsByProTxHash) Less(i, j int) bool {
 	vssi, err := vss[i].GetProTxHash()
 	if err != nil {
 		panic(err)
@@ -180,7 +180,7 @@ func (vss ValidatorStubsByPower) Less(i, j int) bool {
 	return vss[i].VotingPower > vss[j].VotingPower
 }
 
-func (vss ValidatorStubsByPower) Swap(i, j int) {
+func (vss ValidatorStubsByProTxHash) Swap(i, j int) {
 	it := vss[i]
 	vss[i] = vss[j]
 	vss[i].Index = int32(i)

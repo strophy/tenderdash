@@ -135,6 +135,10 @@ func (app *Application) Commit() types.ResponseCommit {
 	return resp
 }
 
+func (app *Application) GetHeight() int64 {
+	return app.state.Height
+}
+
 // Returns an associated value or nil if missing.
 func (app *Application) Query(reqQuery types.RequestQuery) (resQuery types.ResponseQuery) {
 	switch reqQuery.Path {

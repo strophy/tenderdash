@@ -35,6 +35,10 @@ type PersistentKVStoreApplication struct {
 
 	ValidatorSetUpdates types.ValidatorSetUpdate
 
+	validatorsUpdated bool
+	thresholdPublicKeyUpdated bool
+	quorumHashUpdated bool
+
 	valProTxHashToPubKeyMap map[string]pc.PublicKey
 
 	logger log.Logger
@@ -141,7 +145,7 @@ func (app *PersistentKVStoreApplication) Query(reqQuery types.RequestQuery) (res
 	}
 }
 
-// Save the validators in the merkle tree
+// InitChain initializes the chain
 func (app *PersistentKVStoreApplication) InitChain(req types.RequestInitChain) types.ResponseInitChain {
 	for _, v := range req.ValidatorSet.ValidatorUpdates {
 		r := app.updateValidatorSet(v)
@@ -162,12 +166,21 @@ func (app *PersistentKVStoreApplication) InitChain(req types.RequestInitChain) t
 func (app *PersistentKVStoreApplication) BeginBlock(req types.RequestBeginBlock) types.ResponseBeginBlock {
 	// reset valset changes
 	app.ValidatorSetUpdates.ValidatorUpdates = make([]types.ValidatorUpdate, 0)
+	app.validatorsUpdated = false
+	app.thresholdPublicKeyUpdated = false
+	app.quorumHashUpdated = false
 
 	return types.ResponseBeginBlock{}
 }
 
 // Update the validator set
 func (app *PersistentKVStoreApplication) EndBlock(req types.RequestEndBlock) types.ResponseEndBlock {
+	// They need to all be equal
+	if !(app.validatorsUpdated == app.thresholdPublicKeyUpdated && app.thresholdPublicKeyUpdated == app.quorumHashUpdated) {
+		panic("if validators were update then the threshold public key and quorum hash must be as well")
+	}
+	fmt.Printf("endBlock at height %d updates %v thresholdPublicKey %v quorumHash %v\n", app.app.GetHeight(),
+		app.ValidatorSetUpdates.ValidatorUpdates, app.ValidatorSetUpdates.ThresholdPublicKey, crypto.QuorumHash(app.ValidatorSetUpdates.QuorumHash))
 	return types.ResponseEndBlock{ValidatorSetUpdate: &app.ValidatorSetUpdates}
 }
 
@@ -215,6 +228,13 @@ func (app *PersistentKVStoreApplication) ValidatorSet() (validatorSet types.Vali
 				panic(err)
 			}
 			validatorSet.ThresholdPublicKey = thresholdPublicKeyMessage.GetThresholdPublicKey()
+		} else if isQuorumHashTx(key) {
+			quorumHashMessage := new(types.QuorumHashUpdate)
+			err := types.ReadMessage(bytes.NewBuffer(itr.Value()), quorumHashMessage)
+			if err != nil {
+				panic(err)
+			}
+			validatorSet.QuorumHash = quorumHashMessage.GetQuorumHash()
 		}
 	}
 	if err = itr.Error(); err != nil {
@@ -375,6 +395,7 @@ func (app *PersistentKVStoreApplication) updateValidatorSet(v types.ValidatorUpd
 
 	// we only update the changes array if we successfully updated the tree
 	app.ValidatorSetUpdates.ValidatorUpdates = append(app.ValidatorSetUpdates.ValidatorUpdates, v)
+	app.validatorsUpdated = true
 
 	return types.ResponseDeliverTx{Code: code.CodeTypeOK}
 }
@@ -400,6 +421,7 @@ func (app *PersistentKVStoreApplication) updateThresholdPublicKey(
 
 	// we only update the changes array if we successfully updated the tree
 	app.ValidatorSetUpdates.ThresholdPublicKey = thresholdPublicKeyUpdate.GetThresholdPublicKey()
+	app.thresholdPublicKeyUpdated = true
 
 	return types.ResponseDeliverTx{Code: code.CodeTypeOK}
 }
@@ -421,6 +443,7 @@ func (app *PersistentKVStoreApplication) updateQuorumHash(
 
 	// we only update the changes array if we successfully updated the tree
 	app.ValidatorSetUpdates.QuorumHash = quorumHashUpdate.GetQuorumHash()
+	app.quorumHashUpdated = true
 
 	return types.ResponseDeliverTx{Code: code.CodeTypeOK}
 }

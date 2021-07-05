@@ -652,7 +652,7 @@ func (pv *FilePV) signProposal(chainID string, quorumType btcjson.LLMQType, quor
 	if quorumKeys, ok := pv.Key.PrivateKeys[quorumHash.String()]; ok {
 		privKey = quorumKeys.PrivKey
 	} else {
-		return blockSignId, fmt.Errorf("file private validator could not sign vote for quorum hash %v", quorumHash)
+		return blockSignId, fmt.Errorf("file private validator could not sign proposal for quorum hash %v", quorumHash)
 	}
 
 	// It passed the checks. SignDigest the proposal

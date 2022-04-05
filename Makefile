@@ -20,8 +20,8 @@ CGO_ENABLED ?= 1
 
 # handle ARM builds
 ifeq (arm,$(GOARCH))
-	export CC = arm-linux-gnueabi-gcc-10
-	export CXX = arm-linux-gnueabi-g++-10
+	export CC = aarch64-linux-gnu-gcc-10
+	export CXX = aarch64-linux-gnu-g++-10
 endif
 
 # handle nostrip

@@ -10,7 +10,7 @@ git submodule update --init third_party/bls-signatures/src
 mkdir -p $BUILD_PATH
 
 # Configurate the library build
-cmake -B $BUILD_PATH -S $SRC_PATH
+cmake --toolchain $SCRIPT_PATH/TC-linux-aarch64.cmake -B $BUILD_PATH -S $SRC_PATH 
 
 # Build the library
 make -C $BUILD_PATH chiabls

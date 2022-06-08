@@ -7,7 +7,6 @@ require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/Workiva/go-datastructures v1.0.53
 	github.com/adlio/schema v1.3.0
-	github.com/btcsuite/btcd v0.22.0-beta
 	github.com/btcsuite/btcutil v1.0.3-0.20201208143702-a53e38424cce
 	github.com/containerd/continuity v0.2.2 // indirect
 	github.com/dashevo/dashd-go v0.23.4
@@ -29,7 +28,6 @@ require (
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/glog v1.0.0 // indirect
 	github.com/golang/protobuf v1.5.2
-	github.com/golang/snappy v0.0.4 // indirect
 	github.com/golangci/golangci-lint v1.44.0
 	github.com/google/btree v1.0.1 // indirect
 	github.com/google/orderedcode v0.0.1
@@ -61,6 +59,7 @@ require (
 	github.com/spf13/viper v1.10.1
 	github.com/stretchr/objx v0.3.0 // indirect
 	github.com/stretchr/testify v1.7.1
+	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
 	github.com/tendermint/tm-db v0.6.6
 	github.com/vektra/mockery/v2 v2.10.0
 	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064

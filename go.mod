@@ -59,8 +59,7 @@ require (
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.10.1
-	github.com/stretchr/objx v0.3.0 // indirect
-	github.com/stretchr/testify v1.7.1
+	github.com/stretchr/testify v1.8.2
 	github.com/tendermint/tm-db v0.6.6
 	github.com/vektra/mockery/v2 v2.10.0
 	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064

@@ -27,9 +27,7 @@ require (
 	github.com/go-pkgz/jrpc v0.2.0
 	github.com/go-pkgz/rest v1.13.0 // indirect
 	github.com/gogo/protobuf v1.3.2
-	github.com/golang/glog v1.0.0 // indirect
-	github.com/golang/protobuf v1.5.2
-	github.com/golang/snappy v0.0.4 // indirect
+	github.com/golang/protobuf v1.5.3
 	github.com/golangci/golangci-lint v1.44.0
 	github.com/google/btree v1.0.1 // indirect
 	github.com/google/orderedcode v0.0.1
@@ -39,7 +37,6 @@ require (
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1
-	github.com/klauspost/compress v1.15.1 // indirect
 	github.com/lib/pq v1.10.4
 	github.com/libp2p/go-buffer-pool v0.0.2
 	github.com/magiconair/properties v1.8.6 // indirect
@@ -49,28 +46,21 @@ require (
 	github.com/opencontainers/runc v1.1.1 // indirect
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/petermattis/goid v0.0.0-20220302125637-5f11c28912df // indirect
-	github.com/prometheus/client_golang v1.12.1
-	github.com/prometheus/common v0.33.0 // indirect
+	github.com/prometheus/client_golang v1.19.0
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475
 	github.com/rs/cors v1.8.2
 	github.com/rs/zerolog v1.26.1
 	github.com/sasha-s/go-deadlock v0.3.1
 	github.com/snikch/goodman v0.0.0-20171125024755-10e37e294daa
-	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cobra v1.4.0
 	github.com/spf13/viper v1.10.1
-	github.com/stretchr/objx v0.3.0 // indirect
-	github.com/stretchr/testify v1.7.1
+	github.com/stretchr/testify v1.8.2
 	github.com/tendermint/tm-db v0.6.6
 	github.com/vektra/mockery/v2 v2.10.0
-	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064
-	golang.org/x/net v0.0.0-20220325170049-de3da57026de
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20220330033206-e17cdc41300f // indirect
-	golang.org/x/time v0.0.0-20220224211638-0e9765cccd65 // indirect
-	google.golang.org/genproto v0.0.0-20220329172620-7be39ac1afc7 // indirect
-	google.golang.org/grpc v1.45.0
-	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
+	golang.org/x/crypto v0.18.0
+	golang.org/x/net v0.20.0
+	golang.org/x/sync v0.3.0
+	google.golang.org/grpc v1.55.0
 	gopkg.in/ini.v1 v1.66.4 // indirect
 	pgregory.net/rapid v0.4.7
 )

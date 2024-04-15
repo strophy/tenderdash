@@ -4,12 +4,11 @@ go 1.16
 
 require (
 	github.com/BurntSushi/toml v1.0.0
-	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/Workiva/go-datastructures v1.0.53
-	github.com/adlio/schema v1.3.0
+	github.com/adlio/schema v1.3.5
 	github.com/btcsuite/btcd v0.22.0-beta
 	github.com/btcsuite/btcutil v1.0.3-0.20201208143702-a53e38424cce
-	github.com/containerd/continuity v0.2.2 // indirect
+	github.com/cenkalti/backoff v2.2.1+incompatible // indirect
 	github.com/dashevo/dashd-go v0.23.4
 	github.com/dashevo/dashd-go/btcec/v2 v2.0.6 // indirect
 	github.com/dashpay/bls-signatures/go-bindings v0.0.0-20201127091120-745324b80143
@@ -35,18 +34,18 @@ require (
 	github.com/google/orderedcode v0.0.1
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/websocket v1.5.0
+	github.com/gotestyourself/gotestyourself v2.2.0+incompatible // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/grpc-ecosystem/go-grpc-prometheus v1.2.0
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1
 	github.com/klauspost/compress v1.15.1 // indirect
-	github.com/lib/pq v1.10.4
+	github.com/lib/pq v1.10.7
 	github.com/libp2p/go-buffer-pool v0.0.2
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/minio/highwayhash v1.0.2
 	github.com/mroth/weightedrand v0.4.1
 	github.com/oasisprotocol/curve25519-voi v0.0.0-20220328075252-7dd334e3daae
-	github.com/opencontainers/runc v1.1.1 // indirect
 	github.com/ory/dockertest v3.3.5+incompatible
 	github.com/petermattis/goid v0.0.0-20220302125637-5f11c28912df // indirect
 	github.com/prometheus/client_golang v1.12.1
@@ -63,15 +62,15 @@ require (
 	github.com/stretchr/testify v1.7.1
 	github.com/tendermint/tm-db v0.6.6
 	github.com/vektra/mockery/v2 v2.10.0
-	golang.org/x/crypto v0.0.0-20220321153916-2c7772ba3064
-	golang.org/x/net v0.0.0-20220325170049-de3da57026de
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
-	golang.org/x/sys v0.0.0-20220330033206-e17cdc41300f // indirect
+	golang.org/x/crypto v0.17.0
+	golang.org/x/net v0.10.0
+	golang.org/x/sync v0.1.0
 	golang.org/x/time v0.0.0-20220224211638-0e9765cccd65 // indirect
 	google.golang.org/genproto v0.0.0-20220329172620-7be39ac1afc7 // indirect
 	google.golang.org/grpc v1.45.0
 	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
 	gopkg.in/ini.v1 v1.66.4 // indirect
+	gotest.tools v2.2.0+incompatible // indirect
 	pgregory.net/rapid v0.4.7
 )
 

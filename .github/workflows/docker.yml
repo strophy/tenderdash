@@ -31,7 +31,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set suffix to Docker tags
-        uses: actions/github-script@v6
+        uses: actions/github-script@v9
         id: suffix
         with:
           result-encoding: string

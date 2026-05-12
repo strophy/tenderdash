@@ -48,13 +48,12 @@ require (
 	github.com/oasisprotocol/curve25519-voi v0.0.0-20220328075252-7dd334e3daae
 	github.com/opencontainers/runc v1.1.1 // indirect
 	github.com/ory/dockertest v3.3.5+incompatible
-	github.com/petermattis/goid v0.0.0-20220302125637-5f11c28912df // indirect
 	github.com/prometheus/client_golang v1.12.1
 	github.com/prometheus/common v0.33.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475
 	github.com/rs/cors v1.8.2
 	github.com/rs/zerolog v1.26.1
-	github.com/sasha-s/go-deadlock v0.3.1
+	github.com/sasha-s/go-deadlock v0.3.9
 	github.com/snikch/goodman v0.0.0-20171125024755-10e37e294daa
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cobra v1.4.0

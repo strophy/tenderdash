@@ -44,7 +44,7 @@ require (
 	github.com/libp2p/go-buffer-pool v0.0.2
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/minio/highwayhash v1.0.2
-	github.com/mroth/weightedrand v0.4.1
+	github.com/mroth/weightedrand v1.0.0
 	github.com/oasisprotocol/curve25519-voi v0.0.0-20220328075252-7dd334e3daae
 	github.com/opencontainers/runc v1.1.1 // indirect
 	github.com/ory/dockertest v3.3.5+incompatible
